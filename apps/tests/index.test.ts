@@ -1,8 +1,6 @@
-import { Users } from "./../../packages/db/generated/prisma/browser";
 import { beforeAll, describe, expect, it } from "bun:test";
 import axios, { AxiosError } from "axios";
 import { BACKEND } from "./config";
-import { password } from "bun";
 
 describe("auth endpoints", () => {
   const username = `manas ${Math.random()}`;

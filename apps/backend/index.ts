@@ -2,10 +2,7 @@ import { prisma } from "db/client";
 import express from "express";
 import jwt from "jsonwebtoken";
 import { authMiddleware } from "./middleware";
-import { createClient } from "redis";
-
-const client = createClient();
-client.connect();
+import { loopback } from "./loopback";
 
 const app = express();
 app.use(express.json());
@@ -59,10 +56,24 @@ app.post("/admin/market", async (req, res) => {
       imageUrl,
     },
   });
+
+  const queueLoopbackResponce = await loopback({
+    messageType: "create_market",
+    marketId: response.id,
+  });
+
   res.json({ id: response.id });
 });
 
-app.post("/api/v1/onramp", authMiddleware, (req, res) => {});
+app.post("/api/v1/onramp", authMiddleware, async (req, res) => {
+  const userId: string = req.userId!;
+
+  const queueLoopbackResponce = await loopback({
+    messagetype: "onramp",
+    userId: userId,
+    amount: req.body.amount.toString(),
+  });
+});
 
 app.post("/api/v1/order", authMiddleware, (req, res) => {});
 
