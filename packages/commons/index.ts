@@ -1,6 +1,6 @@
 export type ToEngine =
   | {
-      messagetype: "onramp";
+      messageType: "onramp";
       userId: string;
       amount: string;
     }

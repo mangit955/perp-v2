@@ -62,6 +62,7 @@
     "apps/engine": {
       "name": "engine",
       "dependencies": {
+        "commons": "workspace:*",
         "redis": "^6.0.0",
       },
       "devDependencies": {

@@ -69,7 +69,7 @@ app.post("/api/v1/onramp", authMiddleware, async (req, res) => {
   const userId: string = req.userId!;
 
   const queueLoopbackResponce = await loopback({
-    messagetype: "onramp",
+    messageType: "onramp",
     userId: userId,
     amount: req.body.amount.toString(),
   });
